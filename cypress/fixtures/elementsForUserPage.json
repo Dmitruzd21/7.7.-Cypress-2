@@ -1,0 +1,9 @@
+{
+    "filmTitle": ".buying__info-title",
+    "filmTime": ".buying__info-start",
+    "hallName": ".buying__info-hall",
+    "filmTitleAfterBooking": ".ticket__info .ticket__title",
+    "hallNameAfterBooking": ":nth-child(3) > .ticket__details",
+    "filmTimeAfterBooking":".ticket__start",
+    "qrCode": ".ticket__info-qr"
+}
