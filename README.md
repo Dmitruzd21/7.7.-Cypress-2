@@ -2,6 +2,8 @@
 [![7.7. Cypress 2](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/46f622&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/46f622/runs)
 [![7.7. Cypress 2](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/count/46f622&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/46f622/runs)
 
+## Проект к домашнему заданию по темам «Cypress, ч.2 и CI/СD (Jenkins)»
+
 **Доступ к dashboard**
 
 Ссылка на последний запуск: https://dashboard.cypress.io/projects/46f622/runs/3
