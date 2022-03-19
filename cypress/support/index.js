@@ -24,7 +24,7 @@ const admin = require("../fixtures/elementsForAdminPage.json");
 const dataFotHallCreation = require("../fixtures/dataForHallCreation.json");
 const {startPageForAdmin, login, password} = require("../fixtures/login_data.json");
 
-/* after(() => {
+after(() => {
   cy.visit(startPageForAdmin);
   cy.login(login, password);
   cy.wait(4000);
@@ -43,4 +43,4 @@ const {startPageForAdmin, login, password} = require("../fixtures/login_data.jso
      }
     });
    });
- */
+
