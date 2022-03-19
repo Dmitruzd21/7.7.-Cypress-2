@@ -4,6 +4,6 @@ module.exports = {
     hallForEqual: "Зал3",
     time: '"12:00"',
     row: 1,
-    chair: 6,
+    chair: 2,
     expectedUrlAfterAttemptOfBooking: "http://qamid.tmweb.ru/client/payment.php"
 }

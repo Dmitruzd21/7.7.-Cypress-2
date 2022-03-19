@@ -27,10 +27,21 @@ const admin = require("../fixtures/elementsForAdminPage.json");
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+String.prototype.format = function () {
+    // store arguments in an array
+    var args = arguments;
+    // use replace to iterate over the string
+    // select the match and check if related argument is present
+    // if yes, replace the match with the argument
+    return this.replace(/{([0-9]+)}/g, function (match, index) {
+      // check if the argument is present
+      return typeof args[index] == 'undefined' ? match : args[index];
+    });
+  };
+
 // кастомные команды для администраторской сайта
 
 Cypress.Commands.add('login', (login, password) => {
-    //cy.visit("http://qamid.tmweb.ru/admin/");
     cy.get(admin.loginInput).type(login);
     cy.get(admin.passwordInput).type(password);
     cy.get(admin.loginButton).click();
@@ -45,13 +56,13 @@ Cypress.Commands.add('createHall', (hallName) => {
 });
 
 Cypress.Commands.add('setHallConfigurations', (hallName) => {
-    cy.xpath(`//*[@id="hall-configuration"]/div/ul/li/*[@value="${hallName}"]`).click();
+    cy.xpath(admin.hallInConfigurationSection.format(hallName)).click();
     cy.get(admin.hallConfigurations).contains("Сохранить").click();
     cy.wait(300);
 });
 
 Cypress.Commands.add('setPrice', (hallName) => {
-    cy.xpath(`//*[@id="price-configuration"]/div/ul/li/*[@value="${hallName}"]`).click();
+    cy.xpath(admin.hallInPriceSection.format(hallName)).click();
     cy.get(admin.priceConfiguration).contains("Сохранить").click();
 });
 
@@ -101,7 +112,7 @@ Cypress.Commands.add('addSession', (time) => {
 });
 
 Cypress.Commands.add('openSales', (hallName) => {
-    cy.xpath(`//*[@id="start-sales"]/div[1]/ul/li/*[@value="${hallName}"]`).click();
+    cy.xpath(admin.hallInStartSalesSection.format(hallName)).click();
     cy.contains('Открыть продажу билетов').click();
     cy.wait(500);
 });
@@ -109,7 +120,7 @@ Cypress.Commands.add('openSales', (hallName) => {
 // кастомные команды для бронирования билетов
 
 Cypress.Commands.add('chooseDay', (day) => {
-    cy.xpath(`//span[contains(text(), ${day})]`).click();
+    cy.xpath(user.dayElement.format(day)).click();
 });
 
 Cypress.Commands.add('chooseTimeAndFilm', (film, hall, time) => {
@@ -118,7 +129,7 @@ Cypress.Commands.add('chooseTimeAndFilm', (film, hall, time) => {
      // 2. затем у этого прародителя ищем элемент Супер залл
      // 3. затем у этого прародителя ищем элемент 12:00
      // Таким образом, находим 12:00 именно Супер залла и именно Фильма 3
-     cy.xpath(`//section[./div[./div[./h2[contains(text(), ${film})]]]]//div[./h3[contains(text(), ${hall})]]//a[contains(text(), ${time})]`).click();
+     cy.xpath(user.filmSession.format(film, hall, time)).click();
 });
 
 Cypress.Commands.add('checkTicketDataBeforeBooking', (filmForEqual, timeForEqual, hallForEqual) => {
@@ -135,7 +146,7 @@ Cypress.Commands.add('chooseAndClickChair', (row, chair) => {
     // выбираем ряд
     // выбираем кресло, выбранного ранее ряда
     // кликаем на кресло
-    cy.get(`.buying-scheme__row:nth-child(${row}) .buying-scheme__chair:nth-child(${chair})`).click();
+    cy.get(user.chairOfRow.format(row, chair)).click();
 });
 
 Cypress.Commands.add('book', () => {
@@ -144,7 +155,7 @@ Cypress.Commands.add('book', () => {
 
 Cypress.Commands.add('checkUrl', (expectedUrlAfterAttemptOfBooking) => {
     cy.wait(2000);
-    cy.url();
+    cy.url().should("eq",`${expectedUrlAfterAttemptOfBooking}`);
 });
 
 Cypress.Commands.add('checkTicketDataAfterBooking', (filmForEqual, hallForEqual, timeForEqual) => {

@@ -19,13 +19,15 @@ import './commands'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 require('cypress-xpath')
+
 const admin = require("../fixtures/elementsForAdminPage.json");
 const dataFotHallCreation = require("../fixtures/dataForHallCreation.json");
-const {pageAfterLogin} = require("../fixtures/login_data.json");
+const {startPageForAdmin, login, password} = require("../fixtures/login_data.json");
 
-after(() => {
-  cy.visit(pageAfterLogin);
-  cy.wait(2000);
+/* after(() => {
+  cy.visit(startPageForAdmin);
+  cy.login(login, password);
+  cy.wait(4000);
   dataFotHallCreation.forEach(data => {
       if (data.hallName == "Супер зал") {
         cy.get(admin.filmToRemove).click();
@@ -41,4 +43,4 @@ after(() => {
      }
     });
    });
-
+ */
